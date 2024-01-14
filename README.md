@@ -4,6 +4,9 @@ A NETFLIX clone application created using React, Tailwind CSS, and Firebase
 
 ## Preview
 
+[View Live Project](https://netflix-clone-ebf55.web.app/)
+<br>
+
 <div class="grid grid-cols-2 gap-4">
   <div>
     <img src="./NETFLIX/public/Ana.png" alt="Screenshot 1" class="w-full h-auto">
@@ -16,5 +19,3 @@ A NETFLIX clone application created using React, Tailwind CSS, and Firebase
     <img src="./NETFLIX/public/LoginResponsive.png" alt="Screenshot 4" class="w-48 h-auto">
   </div>
 </div>
-
-[View Live Project](https://netflix-clone-ebf55.web.app/)
