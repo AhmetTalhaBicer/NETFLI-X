@@ -13,11 +13,11 @@ A NETFLIX clone application created using React, Tailwind CSS and Firebase
     <img src="./NETFLIX/public/AnaResponsive.png" alt="Screenshot 2" class="w-full h-auto">
     <p class="text-center mt-2">Screenshot 2</p>
   </div>
-  <div>
+  <div class="col-span-2">
     <img src="./NETFLIX/public/Login.png" alt="Screenshot 3" class="w-full h-auto">
     <p class="text-center mt-2">Screenshot 3</p>
   </div>
-  <div>
+  <div class="col-span-2">
     <img src="./NETFLIX/public/LoginResponsive.png" alt="Screenshot 4" class="w-full h-auto">
     <p class="text-center mt-2">Screenshot 4</p>
   </div>
