@@ -4,70 +4,71 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { useToasts } from "react-toast-notifications";
 
-// Her bir film öğesini temsil eden Movie bileşeni
 const Movie = ({ item }) => {
-  // Beğeni durumunu ve kaydedildiği durumu takip etmek için state'ler
   const [like, setLike] = useState(false);
-  const [saved, setSaved] = useState(false);
-
-  // Kullanıcı bilgilerini almak için UserAuth hook'unu kullanma
+  const [setSaved] = useState(false);
   const { user } = UserAuth();
+  const { addToast } = useToasts();
 
-  // Firestore'da kullanıcının belirli bir filmi kaydetmek için kullanılacak belge referansı
   const movieID = doc(db, "users", `${user?.email}`);
 
-  // Bir filmi kaydetme işlemi
   const saveShow = async () => {
-    // Eğer kullanıcı giriş yapmışsa işlemi gerçekleştir, aksi takdirde uyarı ver
     if (user?.email) {
-      // Beğeni durumunu tersine çevir ve kaydedildiği durumu güncelle
       setLike(!like);
       setSaved(true);
 
-      // Firestore'da kullanıcının belgesini güncelle, savedShows dizisine yeni film eklenir
-      await updateDoc(movieID, {
-        savedShows: arrayUnion({
-          id: item.id,
-          title: item.title,
-          img: item.backdrop_path,
-        }),
-      });
+      try {
+        await updateDoc(movieID, {
+          savedShows: arrayUnion({
+            id: item.id,
+            title: item.title,
+            img: item.backdrop_path,
+          }),
+        });
+
+        // Notify the user that the show has been saved
+        addToast("Show saved successfully!", { appearance: "success" });
+      } catch (error) {
+        console.error("Error saving show:", error);
+        addToast("Error saving show. Please try again later.", {
+          appearance: "error",
+        });
+      }
     } else {
-      // Kullanıcı giriş yapmamışsa uyarı ver
-      alert("Please log in to save a movie");
+      addToast("Please log in to save the show.", { appearance: "error" });
     }
   };
 
-  // Movie bileşeni JSX yapısı
   return (
-    <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2">
-      {/* Film afişi */}
-      <img
-        className="w-full h-auto block"
-        src={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`}
-        alt={item?.title}
-      />
-      {/* Film bilgileri gösterilecek overlay */}
-      <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white">
-        {/* Film başlığı */}
-        <p className="white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center">
-          {item?.title}
-        </p>
-        {/* Film beğeni ikonu, tıklanabilir */}
-        <p onClick={saveShow}>
-          {like ? (
-            <FaHeart className="absolute top-4 left-4 text-gray-300" />
-          ) : (
-            <FaRegHeart className="absolute top-4 left-4 text-gray-300" />
-          )}
-        </p>
+    <div className="w-[200px] sm:w-[240px] md:w-[280px] lg:w-[320px] inline-block relative p-2 transform transition-transform duration-300 hover:scale-110">
+      <div className="relative group">
+        <img
+          className="w-full h-auto block"
+          src={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`}
+          alt={item?.title}
+        />
+        <div className="absolute top-0 left-0 w-full h-full opacity-0 hover:opacity-100 bg-black/80 text-white flex flex-col justify-center items-center text-center">
+          <p className="white-space-normal text-md md:text-lg font-bold mb-2">
+            {item?.title}
+          </p>
+          <p
+            onClick={saveShow}
+            className="absolute bottom-4 left-1/2 transform -translate-x-1/2"
+          >
+            {like ? (
+              <FaHeart className="text-red-500 text-2xl" />
+            ) : (
+              <FaRegHeart className="text-gray-300 text-2xl" />
+            )}
+          </p>
+        </div>
       </div>
     </div>
   );
 };
 
-// Movie bileşeni için beklenen prop tipleri belirlenir
 Movie.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number,
