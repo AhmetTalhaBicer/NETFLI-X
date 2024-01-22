@@ -4,7 +4,7 @@ A NETFLIX clone application created using React, Tailwind CSS, and Firebase
 
 ## Preview
 
-[View Live Project](https://netflix-clone-ebf55.web.app/)
+[View Live Project](https://netfli-x.vercel.app/)
 <br>
 
 <div class="grid grid-cols-2 gap-4">
