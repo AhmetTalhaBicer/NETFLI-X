@@ -4,7 +4,8 @@ A NETFLIX clone application created using React, Tailwind CSS, and Firebase
 
 ## Preview
 
-[View Live Project](https://netfli-x.vercel.app/)
+[View Live Project](https://netfli-x.vercel.app/){:target="_blank"}
+
 <br>
 
 <div class="grid grid-cols-2 gap-4">
