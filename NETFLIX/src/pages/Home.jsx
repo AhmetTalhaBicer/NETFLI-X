@@ -1,4 +1,4 @@
-import requests from "../services/Request";
+import requests from "../services/MovieAPI";
 import Main from "../components/Main";
 import Row from "../components/Row";
 const Home = () => {

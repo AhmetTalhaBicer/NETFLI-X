@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import requests from "../services/Request";
+import requests from "../services/MovieAPI";
 
 const Main = () => {
   // movies state'i, API'den gelen popüler film verilerini içerir.
